@@ -41,7 +41,7 @@ export default function Home() {
                     <div className="-mb-24 mt-">
                       <img
                         className="w-52 text-center mx-auto"
-                        src="/src/assets/images/product/food.png"
+                        src={item.image}
                       />
                     </div>
                     <div className="bg-white pt-24 pb-6 px-6 rounded-xl shadow-md">
