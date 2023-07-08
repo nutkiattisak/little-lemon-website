@@ -1,26 +1,29 @@
-import { DatePicker, Input, InputNumber, TimePicker } from "antd";
+import { DatePicker, Input, TimePicker } from "antd";
 import type { DatePickerProps } from "antd";
-import { useForm, SubmitHandler } from "react-hook-form";
+import type { Dayjs } from "dayjs";
+import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 export default function Reservation() {
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onChangeNumber = (value: number) => {
-    console.log("changed", value);
+  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+    console.log(date, dateString);
+  };
+
+  const onChangeTime  = (time: Dayjs) => {
+    console.log(time);
   };
 
   const format = "HH:mm";
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <>
@@ -31,7 +34,7 @@ export default function Reservation() {
               Reservation
             </h1>
             <form
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={onSubmit}
               className="bg-white shadow-md px-8 pt-6 pb-8 mb-4 rounded-3xl"
             >
               <div className="flex flex-wrap -mx-3 mb-6">
@@ -89,13 +92,10 @@ export default function Reservation() {
                   >
                     Number of People
                   </label>
-                  <InputNumber
-                    min={1}
-                    max={10}
-                    onChange={onChangeNumber}
+                  <Input
+                    size="large"
                     className="w-full"
                     {...register("numbert_people", { required: true })}
-                    size="large"
                   />
                   {errors.numbert_people && (
                     <span className="text-red-500">This field is required</span>
@@ -134,6 +134,7 @@ export default function Reservation() {
                     minuteStep={15}
                     className="w-full"
                     size="large"
+                    onChange={() => onChangeTime}
                   />
                   {errors.time && (
                     <span className="text-red-500">This field is required</span>

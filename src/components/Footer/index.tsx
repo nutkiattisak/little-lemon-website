@@ -91,7 +91,7 @@ export default function index() {
               <p className="text-base font-thin"></p>
             </div>
             <div className="text-white">
-              {social.map((item, index) => {
+              {social.map((item) => {
                 return (
                   <>
                     <p className="mb-1">
